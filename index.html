@@ -1379,8 +1379,8 @@ window.addEventListener('load',function(){setTimeout(aaInit,300)});
 
 
 <script>
-const APP_VERSION='6.10.10';
-const APP_VERSION_LABEL='Version 6.10.10 – E-Mail-App Auswahl Fix';
+const APP_VERSION='6.10.12';
+const APP_VERSION_LABEL='Version 6.10.12 – Verlauf/KW-Laden Fix';
 
 
 
@@ -2025,42 +2025,83 @@ function delWeek(id){
 }
 
 function loadWeek(id){
-  const w=weeks.find(x=>x.id===id); if(!w)return;
-  document.getElementById('kw').value=w.kw;
-  document.getElementById('mname').value=w.name;
-  document.getElementById('mfrom').value=w.from||'';
-  document.getElementById('mto').value=w.to||'';
-  document.getElementById('msoll').value=w.soll||40;
-  DAYS.forEach(d=>{
-    const c=document.getElementById('ec-'+d.k); c.innerHTML=''; ec[d.k]=0;
-    const es=w.days[d.k]||[];
-    // Abwesenheitstag erkennen und Badge setzen
-    const abwMatch=es.length===1&&ABW.find(a=>a.projnr===es[0].projnr);
-    if(abwMatch){
-      setAbw(d.k, abwMatch.key);
-    } else if(!es.length){
-      addE(d.k,true);
-    } else {
-      es.forEach(()=>addE(d.k,true));
-    }
-    // Abwesenheitstage überspringen (Badge bereits gesetzt)
-    if(c.abwData) { updSum(d.k); return; }
-    Array.from(c.querySelectorAll('.eintrag')).forEach((div,i)=>{
-      const e=es[i]; if(!e)return;
-      const eid=div.id.replace('ei-','');
-      const sv=(f,v)=>{const el=document.getElementById(eid+'-'+f);if(el){if(v)el.value=v;el.classList.remove('err');if(v)el.classList.add('ok');}};
-      sv('dat',e.datum);sv('von',e.von);sv('bis',e.bis);
-      var pauEl=document.getElementById(eid+'-pau'); if(pauEl) pauEl.value=(e.pause!==undefined&&e.pause!==null)?String(e.pause):'0';
-      sv('prj',e.proj);sv('pnr',e.projnr);sv('zon',e.zone);
-      sv('fzm',e.fzm);sv('fzs',e.fzs);sv('tae',e.taet);
-    });
-    updSum(d.k);
-    if((w.days[d.k]||[]).some(e=>e.von)) openDay(d.k);
-  });
-  goPage('erfassen',document.querySelector('.nb'));
-  toast('✅ Woche geladen');
-}
+  // V6.10.12: Verlauf/KW mobilfest laden.
+  // IDs immer als String vergleichen, damit alte/neue Datensätze unabhängig vom Typ gefunden werden.
+  const sid=String(id);
+  const w=(weeks||[]).find(x=>String(x.id)===sid);
+  if(!w){
+    if(typeof toast==='function')toast('⚠️ Woche konnte nicht geladen werden');
+    return;
+  }
 
+  // Während des Ladens KW-/Datums-Wechsel-Handler sperren. Manche Mobilbrowser
+  // lösen beim Umschalten der Ansicht zusätzliche change-Ereignisse aus.
+  window.__twsLoadingHistoryWeek=true;
+  try{
+    if(typeof clearDraft==='function')clearDraft();
+
+    document.getElementById('kw').value=(w.kw!==undefined&&w.kw!==null)?String(w.kw):'';
+    document.getElementById('mname').value=w.name||'';
+    document.getElementById('mfrom').value=w.from||'';
+    document.getElementById('mto').value=w.to||'';
+    document.getElementById('msoll').value=(w.soll!==undefined&&w.soll!==null)?w.soll:40;
+
+    DAYS.forEach(d=>{
+      const c=document.getElementById('ec-'+d.k);
+      if(!c)return;
+      c.innerHTML='';
+      c.abwData=null;
+      ec[d.k]=0;
+      const es=(w.days&&Array.isArray(w.days[d.k]))?w.days[d.k]:[];
+
+      // Abwesenheitstag erkennen und Badge setzen
+      const abwMatch=es.length===1&&ABW.find(a=>a.projnr===es[0].projnr);
+      if(abwMatch){
+        setAbw(d.k, abwMatch.key);
+      } else if(!es.length){
+        addE(d.k,true);
+      } else {
+        es.forEach(()=>addE(d.k,true));
+      }
+
+      // Abwesenheitstage überspringen (Badge bereits gesetzt)
+      if(c.abwData){ updSum(d.k); return; }
+
+      Array.from(c.querySelectorAll('.eintrag')).forEach((div,i)=>{
+        const e=es[i]; if(!e)return;
+        const eid=div.id.replace('ei-','');
+        const sv=(f,v)=>{
+          const el=document.getElementById(eid+'-'+f);
+          if(el){
+            el.value=(v!==undefined&&v!==null)?String(v):'';
+            el.classList.remove('err');
+            if(el.value)el.classList.add('ok'); else el.classList.remove('ok');
+          }
+        };
+        sv('dat',e.datum); sv('von',e.von); sv('bis',e.bis);
+        var pauEl=document.getElementById(eid+'-pau');
+        if(pauEl)pauEl.value=(e.pause!==undefined&&e.pause!==null)?String(e.pause):'0';
+        sv('prj',e.proj); sv('pnr',e.projnr); sv('zon',e.zone);
+        sv('fzm',e.fzm); sv('fzs',e.fzs); sv('tae',e.taet);
+      });
+      updSum(d.k);
+      if(es.some(e=>e&&e.von))openDay(d.k);
+    });
+
+    // Den gerade geladenen Verlaufseintrag als aktuellen Entwurf sichern,
+    // damit ein späterer Auto-Restore nicht wieder eine andere KW einspielt.
+    if(typeof saveDraft==='function')saveDraft();
+    goPage('erfassen',document.querySelector('.nb'));
+    if(typeof updateTwsDashboard==='function')setTimeout(updateTwsDashboard,50);
+    if(typeof toast==='function')toast('✅ KW '+(w.kw||'')+' geladen');
+  }catch(err){
+    console.error('loadWeek failed',err);
+    if(typeof toast==='function')toast('⚠️ Woche konnte nicht vollständig geladen werden');
+  }finally{
+    // Erst nach dem aktuellen Event-Zyklus wieder freigeben.
+    setTimeout(function(){window.__twsLoadingHistoryWeek=false;},0);
+  }
+}
 
 function weekHasMonth(w, mon){
   if(!mon)return true;
@@ -6479,6 +6520,7 @@ document.addEventListener('click',function(e){
 
   // KW-Wechsel: Kopfdaten auf neue KW setzen und Tages-Einträge leer neu anlegen.
   window.onKWChange=function(){
+    if(window.__twsLoadingHistoryWeek)return;
     var kwEl=document.getElementById('kw');
     var kw=kwEl?parseInt(kwEl.value,10):0;
     if(!kw || kw<1 || kw>53)return;
@@ -6487,6 +6529,7 @@ document.addEventListener('click',function(e){
 
   // Von-Datum-Wechsel: Auch hier neue Woche leer machen, statt alte Einträge mitzuziehen.
   window.onWeekChange=function(){
+    if(window.__twsLoadingHistoryWeek)return;
     var fromVal=(document.getElementById('mfrom')||{}).value;
     if(!fromVal)return;
     var mo=new Date(fromVal);
