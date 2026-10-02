@@ -36,7 +36,7 @@
 
 /* ─── IMPRESSUM ─────────────────────── */
 .impressum-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
-.impressum-body.impressum-open{max-height:1000px;}
+.impressum-body.impressum-open{max-height:5000px;}
 .impressum-section{padding:10px 0;border-bottom:1px solid rgba(108,99,255,.1);}
 .impressum-section:last-child{border-bottom:none;}
 .impressum-label{font-size:11px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
@@ -1261,40 +1261,68 @@ input.pflicht.ok{border-color:rgba(46,204,113,.4)!important}
         <button class="btn br" onclick="clearAll()">🗑&nbsp; Alle Daten löschen</button>
       </div>
 
-      <!-- IMPRESSUM -->
+      <!-- IMPRESSUM / DATENSCHUTZ -->
       <div class="card">
         <div class="ctitle" onclick="this.parentElement.querySelector('.impressum-body').classList.toggle('impressum-open')" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center">
-          <span>Impressum &amp; Rechtliches</span>
+          <span>Impressum &amp; Datenschutz</span>
           <span style="font-size:12px;color:var(--txt2)">▼</span>
         </div>
         <div class="impressum-body">
           <div class="impressum-section">
-            <div class="impressum-label">App-Inhaber</div>
-            <div class="impressum-value">Sonny Linzner</div>
+            <div class="impressum-label">Anwendung / Zweck</div>
+            <div class="impressum-value">Die TWS-App ist eine interne Arbeitsanwendung zur Erfassung und Auswertung von Arbeitszeiten sowie zur Erstellung und Bearbeitung dienstlicher Arbeitsunterlagen. Sie ist nicht als öffentliches Kundenportal bestimmt.</div>
           </div>
           <div class="impressum-section">
-            <div class="impressum-label">Auftraggeber</div>
-            <div class="impressum-value">TWS GmbH – Technischer Wartungs- und Servicedienst GmbH<br>Gerstenstraße 7, 17034 Neubrandenburg</div>
+            <div class="impressum-label">Entwicklung / Urheber</div>
+            <div class="impressum-value">Sonny Linzner<br>Interne Entwicklung für die TWS GmbH – Technischer Wartungs- und Servicedienst GmbH.</div>
           </div>
           <div class="impressum-section">
-            <div class="impressum-label">Zweck</div>
-            <div class="impressum-value">Diese App dient ausschließlich der internen Arbeitszeiterfassung für Mitarbeiter der TWS GmbH. Sie ist nicht für den öffentlichen Einsatz bestimmt.</div>
+            <div class="impressum-label">Betrieblicher Einsatz</div>
+            <div class="impressum-value">TWS GmbH – Technischer Wartungs- und Servicedienst GmbH<br>Gerstenstraße 7, 17034 Neubrandenburg<br><br>Für die datenschutzrechtliche Einordnung der im Rahmen des Beschäftigungsverhältnisses verarbeiteten Daten gelten die betrieblichen Zuständigkeiten und Vorgaben der TWS GmbH. Diese Anwendung ersetzt keine betrieblich erforderlichen Datenschutzinformationen oder internen Regelungen.</div>
           </div>
           <div class="impressum-section">
-            <div class="impressum-label">Datenschutz</div>
-            <div class="impressum-value">Alle eingegebenen Daten werden ausschließlich lokal auf Ihrem Gerät gespeichert. Es findet keine Übertragung an Server oder Dritte statt.</div>
+            <div class="impressum-label">Welche Daten die App verarbeitet</div>
+            <div class="impressum-value">Je nach Nutzung können insbesondere Name, Arbeitszeiten, Kalenderwoche, Projekt- und Auftragsangaben, Tätigkeitsbeschreibungen, Abwesenheiten, E-Mail-Einstellungen sowie Angaben in Arbeitsaufträgen und Unterschriften verarbeitet werden.</div>
+          </div>
+          <div class="impressum-section">
+            <div class="impressum-label">Lokale Speicherung</div>
+            <div class="impressum-value">Die von der App verwalteten Erfassungs-, Einstellungs- und Verlaufsdaten werden im Browser auf dem verwendeten Endgerät (Local Storage) gespeichert. Diese lokale Speicherung ist für die vom Nutzer gewünschten Speicher-, Verlaufs- und Wiederherstellungsfunktionen der App erforderlich. Die App enthält für diese lokalen Daten keine eigene zentrale Benutzer- oder Arbeitszeitdatenbank.</div>
+          </div>
+          <div class="impressum-section">
+            <div class="impressum-label">Bereitstellung der Anwendung</div>
+            <div class="impressum-value">Die Anwendung wird über einen externen Hosting-Dienst bereitgestellt. Dabei können technisch erforderliche Verbindungsdaten, insbesondere die IP-Adresse, durch den Hosting-Anbieter verarbeitet werden. Der Hosting-Dienst dient ausschließlich der Bereitstellung der Anwendung. Die innerhalb der Anwendung erfassten Arbeits- und Auftragsdaten werden dadurch nicht automatisch an den Hosting-Anbieter übertragen.<br><br><strong>Hosting-Anbieter:</strong> GitHub, Inc. (GitHub Pages)</div>
+          </div>
+          <div class="impressum-section">
+            <div class="impressum-label">Export, Backup &amp; E-Mail</div>
+            <div class="impressum-value">Excel-/PDF-Exporte und Backups werden erst durch eine bewusste Aktion des Nutzers erzeugt bzw. heruntergeladen. Wird die E-Mail-Funktion verwendet, öffnet die App den vom Nutzer gewählten E-Mail-Dienst bzw. die E-Mail-Anwendung. Eine erzeugte Datei muss – soweit technisch erforderlich – vom Nutzer selbst angehängt bzw. weitergegeben werden. Für die anschließende Verarbeitung durch den gewählten E-Mail-, Cloud- oder Speicherdienst gelten dessen Bedingungen und Datenschutzinformationen.</div>
+          </div>
+          <div class="impressum-section">
+            <div class="impressum-label">Keine Analyse-/Werbetracker der App</div>
+            <div class="impressum-value">Die Anwendung selbst setzt nach ihrem derzeitigen Funktionsumfang keine eigenen Werbe-, Profiling- oder Analyse-Tracker ein. Technisch notwendige Zugriffe des Hosting-Anbieters bleiben hiervon unberührt.</div>
+          </div>
+          <div class="impressum-section">
+            <div class="impressum-label">Daten löschen &amp; Datensicherung</div>
+            <div class="impressum-value">Lokal gespeicherte App-Daten können über die Funktion „Alle Daten löschen“ entfernt werden. Zusätzlich kann der Nutzer eine lokale Backup-Datei erstellen. Das Löschen von Browser-/Website-Daten kann ebenfalls lokal gespeicherte App-Daten entfernen. Für bereits exportierte, versendete oder extern gespeicherte Dateien gelten die Lösch- und Aufbewahrungsregeln des jeweiligen Speicherorts bzw. des Betriebs.</div>
+          </div>
+          <div class="impressum-section">
+            <div class="impressum-label">Datensicherheit</div>
+            <div class="impressum-value">Nutzer sollen dienstliche Daten und Backup-Dateien nur auf dafür vorgesehenen und angemessen geschützten Geräten bzw. Speicherorten verwenden. Bei Geräteverlust, Weitergabe von Dateien oder Nutzung externer Dienste kann die App selbst keinen Zugriffsschutz außerhalb des verwendeten Endgeräts gewährleisten.</div>
+          </div>
+          <div class="impressum-section">
+            <div class="impressum-label">Hinweis zur Richtigkeit</div>
+            <div class="impressum-value">Die App unterstützt die Erfassung und Dokumentenerstellung. Eingaben, Berechnungen und erzeugte Dokumente sind vor ihrer dienstlichen Verwendung auf Richtigkeit und Vollständigkeit zu prüfen. Gesetzliche Rechte und zwingende Haftungsvorschriften bleiben unberührt.</div>
           </div>
           <div class="impressum-section">
             <div class="impressum-label">Urheberrecht</div>
-            <div class="impressum-value">© 2026 Sonny Linzner. Alle Rechte vorbehalten. Vervielfältigung, Weitergabe oder kommerzielle Nutzung ohne ausdrückliche Genehmigung ist untersagt.</div>
+            <div class="impressum-value">© 2026 Sonny Linzner. Die Anwendung und ihre individuelle Programmierung sind urheberrechtlich geschützt, soweit gesetzlich Schutz besteht. Betriebliche Nutzungs- und Weitergaberechte bleiben von bestehenden Vereinbarungen unberührt.</div>
           </div>
           <div class="impressum-section">
-            <div class="impressum-label">Haftungsausschluss</div>
-            <div class="impressum-value">Die App wird ohne Gewähr bereitgestellt. Der Inhaber übernimmt keine Haftung für etwaige Fehler in der Zeiterfassung oder den generierten Dokumenten.</div>
+            <div class="impressum-label">Rechtlicher Hinweis</div>
+            <div class="impressum-value">Diese Hinweise beschreiben den technischen Stand der Anwendung. Gesetzlich vorgeschriebene Angaben und betriebliche Datenschutzinformationen gehen vor. Änderungen an Hosting, Speicherverfahren, externen Diensten oder Funktionen können eine Aktualisierung dieser Hinweise erforderlich machen.</div>
           </div>
           <div class="impressum-section">
-            <div class="impressum-label">Version</div>
-            <div class="impressum-value">Stundennachweis App v3.9 Erfassungs-Fix – Stand: Juni 2026</div>
+            <div class="impressum-label">Stand</div>
+            <div class="impressum-value">Datenschutz- und Rechtshinweise: September 2026</div>
           </div>
         </div>
       </div>
@@ -1522,7 +1550,9 @@ function currentDraft(){
     });
   }
   return {
-    kw:ensureKWValue(),
+    // KW beim Tippen nicht automatisch wieder einsetzen.
+    // So kann das Feld auf Mobilgeraeten komplett geloescht und neu eingegeben werden.
+    kw:gv('kw'),
     name:gv('mname'),
     from:gv('mfrom'),
     to:gv('mto'),
@@ -3602,7 +3632,9 @@ function updateTwsDashboard(){
   try{
     var h=twsCurrentWeekHours();
     var kwEl=document.getElementById('kw');
-    var kw=ensureKWValue()||((kwEl&&kwEl.value)?kwEl.value:'?');
+    // KW beim Dashboard-Refresh nur LESEN, niemals automatisch neu setzen.
+    // Sonst wird ein gerade geloeschtes KW-Feld auf dem Handy nach ~80 ms wieder aufgefuellt.
+    var kw=(kwEl&&String(kwEl.value||'').trim())?String(kwEl.value).trim():'–';
     var label='KW '+kw+' • '+h.total.toFixed(1).replace('.',',')+' h';
     var dw=document.getElementById('dash-week');
     if(dw)dw.textContent=label;
@@ -6518,27 +6550,146 @@ document.addEventListener('click',function(e){
     }
   }
 
-  // KW-Wechsel: Kopfdaten auf neue KW setzen und Tages-Einträge leer neu anlegen.
+  // V6.10.14: Verlustsicherer Wochenwechsel.
+  // Die alte Woche wird zuerst als Snapshot geschrieben UND aus localStorage wieder verifiziert.
+  // Erst danach darf die Oberfläche auf die neue Woche wechseln.
+  function twsCollectVisibleWeekV61014(oldKw){
+    oldKw=String(oldKw||'').trim();
+    if(!oldKw || typeof DAYS==='undefined' || typeof getEs!=='function')return {hasAny:false};
+    var name=(typeof gv==='function')?String(gv('mname')||'').trim():'';
+    var days={};
+    DAYS.forEach(function(d){days[d.k]=getEs(d.k);});
+    var hasAny=Object.keys(days).some(function(k){return Array.isArray(days[k])&&days[k].length>0;});
+    return {
+      hasAny:hasAny,
+      name:name,
+      days:days,
+      from:(typeof gv==='function')?gv('mfrom'):'',
+      to:(typeof gv==='function')?gv('mto'):'',
+      soll:parseFloat((typeof gv==='function')?gv('msoll'):'')||40,
+      kw:oldKw
+    };
+  }
+
+  function twsAutoSaveVisibleWeekV61014(oldKw){
+    var snap=twsCollectVisibleWeekV61014(oldKw);
+    if(!snap.hasAny)return {ok:true,saved:false,empty:true};
+    if(!snap.name)return {ok:false,saved:false,error:'Bitte zuerst den Namen eintragen. Die bisherige Woche wurde NICHT gewechselt.'};
+
+    var marker='auto-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
+    var w={
+      id:Date.now(),
+      _autoSaveMarker:marker,
+      kw:snap.kw,
+      name:snap.name,
+      from:snap.from,
+      to:snap.to,
+      soll:snap.soll,
+      days:snap.days
+    };
+
+    try{
+      var next=(weeks||[]).filter(function(x){
+        return !(String(x.kw)===String(snap.kw) && String(x.name||'')===String(snap.name));
+      });
+      next.unshift(w);
+
+      // Nicht nur sd() aufrufen: hier bewusst direkt schreiben, damit Fehler nicht verschluckt werden.
+      localStorage.setItem('tws5',JSON.stringify(next));
+      var check=JSON.parse(localStorage.getItem('tws5')||'[]');
+      var found=check.find(function(x){return x && x._autoSaveMarker===marker;});
+      if(!found)throw new Error('gespeicherte Woche konnte nicht zurückgelesen werden');
+
+      weeks=check;
+      if(typeof updateBackupCount==='function')updateBackupCount();
+      return {ok:true,saved:true,week:found};
+    }catch(err){
+      console.error('Auto-Speicherung vor KW-Wechsel fehlgeschlagen',err);
+      return {ok:false,saved:false,error:'Speichern fehlgeschlagen. Die bisherige Woche bleibt geöffnet und wurde nicht gelöscht.'};
+    }
+  }
+
+  function twsRememberCurrentKWV61014(){
+    if(window.__twsLoadingHistoryWeek)return;
+    var el=document.getElementById('kw');
+    if(el && el.value)window.__twsPreviousKW=String(el.value);
+  }
+
+  document.addEventListener('DOMContentLoaded',function(){
+    var el=document.getElementById('kw');
+    if(!el)return;
+    if(el.value)window.__twsPreviousKW=String(el.value);
+    el.addEventListener('focus',twsRememberCurrentKWV61014);
+    el.addEventListener('pointerdown',twsRememberCurrentKWV61014);
+  });
+
   window.onKWChange=function(){
     if(window.__twsLoadingHistoryWeek)return;
     var kwEl=document.getElementById('kw');
-    var kw=kwEl?parseInt(kwEl.value,10):0;
-    if(!kw || kw<1 || kw>53)return;
-    twsClearOnlyVisibleWeekV6107({kw:kw,silent:false,message:'✅ KW '+kw+' geöffnet – Erfassung ist leer'});
+    var newKw=kwEl?parseInt(kwEl.value,10):0;
+    if(!newKw || newKw<1 || newKw>53)return;
+    var oldKw=String(window.__twsPreviousKW||'').trim();
+    if(!oldKw){window.__twsPreviousKW=String(newKw);return;}
+    if(oldKw===String(newKw))return;
+
+    var result=twsAutoSaveVisibleWeekV61014(oldKw);
+    if(!result.ok){
+      // KW zurückstellen; die sichtbaren Einträge bleiben unangetastet.
+      if(kwEl)kwEl.value=oldKw;
+      if(typeof toast==='function')toast('⚠️ '+result.error,5000);
+      return;
+    }
+
+    window.__twsPreviousKW=String(newKw);
+    twsClearOnlyVisibleWeekV6107({
+      kw:newKw,
+      silent:false,
+      message:result.saved?('✅ KW '+oldKw+' sicher gespeichert · KW '+newKw+' geöffnet'):('✅ KW '+newKw+' geöffnet – vorherige Woche war leer')
+    });
   };
 
-  // Von-Datum-Wechsel: Auch hier neue Woche leer machen, statt alte Einträge mitzuziehen.
   window.onWeekChange=function(){
     if(window.__twsLoadingHistoryWeek)return;
-    var fromVal=(document.getElementById('mfrom')||{}).value;
+    var fromEl=document.getElementById('mfrom');
+    var fromVal=fromEl?fromEl.value:'';
     if(!fromVal)return;
     var mo=new Date(fromVal);
     if(isNaN(mo.getTime()))return;
+    var kwEl=document.getElementById('kw');
+    var oldKw=String(window.__twsPreviousKW || (kwEl?kwEl.value:'') || '').trim();
+    var newKw=(typeof getKW==='function')?String(getKW(mo)):oldKw;
+    if(!newKw || oldKw===newKw){
+      var suSame=new Date(mo); suSame.setDate(mo.getDate()+6);
+      var toSame=document.getElementById('mto'); if(toSame)toSame.value=twsIsoFromDateV6107(suSame);
+      if(kwEl)kwEl.value=newKw;
+      window.__twsPreviousKW=newKw;
+      if(typeof saveDraft==='function')saveDraft();
+      return;
+    }
+
+    var result=twsAutoSaveVisibleWeekV61014(oldKw);
+    if(!result.ok){
+      // Datum aus der bisherigen KW wiederherstellen, damit nichts optisch auf die neue Woche springt.
+      var oldMo=(typeof getMondayFromKW==='function')?getMondayFromKW(parseInt(oldKw,10),twsGetYearForKWV6107()):null;
+      if(oldMo && !isNaN(oldMo.getTime())){
+        if(fromEl)fromEl.value=twsIsoFromDateV6107(oldMo);
+        var oldSu=new Date(oldMo); oldSu.setDate(oldMo.getDate()+6);
+        var oldTo=document.getElementById('mto'); if(oldTo)oldTo.value=twsIsoFromDateV6107(oldSu);
+      }
+      if(kwEl)kwEl.value=oldKw;
+      if(typeof toast==='function')toast('⚠️ '+result.error,5000);
+      return;
+    }
+
     var su=new Date(mo); su.setDate(mo.getDate()+6);
     var to=document.getElementById('mto'); if(to)to.value=twsIsoFromDateV6107(su);
-    var kwEl=document.getElementById('kw');
-    if(kwEl && typeof getKW==='function')kwEl.value=getKW(mo);
-    twsClearOnlyVisibleWeekV6107({kw:kwEl?kwEl.value:'',silent:false,message:'✅ Neue Woche geöffnet – Erfassung ist leer'});
+    if(kwEl)kwEl.value=newKw;
+    window.__twsPreviousKW=newKw;
+    twsClearOnlyVisibleWeekV6107({
+      kw:newKw,
+      silent:false,
+      message:result.saved?('✅ KW '+oldKw+' sicher gespeichert · KW '+newKw+' geöffnet'):('✅ Neue Woche geöffnet – vorherige Woche war leer')
+    });
   };
 
   // Zurücksetzen-Button: nur aktuelle Erfassungswoche leeren, Name/Soll/KW/Datum behalten, Verlauf bleibt erhalten.
