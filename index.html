@@ -1226,6 +1226,11 @@ input.pflicht.ok{border-color:rgba(46,204,113,.4)!important}
         <div class="brow"><button class="btn bp" onclick="saveSett()">Speichern</button></div>
       </div>
       <div class="card">
+        <div class="ctitle">🆕 Was ist neu?</div>
+        <p style="font-size:13px;color:var(--txt2);margin-bottom:12px;line-height:1.6">Die Hinweise zu neuen Funktionen werden nach einem Update einmal automatisch angezeigt.</p>
+        <button class="btn" onclick="showPatchNotes(true)">Änderungen anzeigen</button>
+      </div>
+      <div class="card">
         <div class="ctitle">App installieren</div>
         <div style="font-size:13px;color:var(--txt2);line-height:1.7;margin-bottom:14px">
           <p style="margin-bottom:10px"><strong style="color:var(--txt);font-size:14px">Android (Chrome)</strong><br>
@@ -1407,8 +1412,63 @@ window.addEventListener('load',function(){setTimeout(aaInit,300)});
 
 
 <script>
-const APP_VERSION='6.10.12';
-const APP_VERSION_LABEL='Version 6.10.12 – Verlauf/KW-Laden Fix';
+const APP_VERSION='6.10.13';
+const APP_VERSION_LABEL='Version 6.10.13 – Patchnotes & KW-Autosave';
+
+
+// ─── PATCHNOTES / WAS IST NEU ────────────────────────────────────────────
+const APP_PATCH_NOTES = [
+  'Kalenderwoche lässt sich auf dem Handy jetzt sauber löschen und neu eingeben.',
+  'Beim Wechsel auf eine andere KW wird die vorherige ausgefüllte Woche automatisch gespeichert.',
+  'Vor dem Wochenwechsel wird die Speicherung geprüft – bei einem Fehler bleibt die alte Woche geöffnet.',
+  'Neuer Bereich „Was ist neu?“ in den Einstellungen.'
+];
+
+function closePatchNotes(){
+  var m=document.getElementById('twsPatchNotesModal');
+  if(m)m.remove();
+}
+
+function showPatchNotes(manual){
+  closePatchNotes();
+  var items=(APP_PATCH_NOTES||[]).map(function(x){
+    return '<div style="display:flex;gap:9px;align-items:flex-start;margin:9px 0;line-height:1.45">'+
+      '<span style="color:var(--green);font-weight:900">✓</span><span>'+esc(x)+'</span></div>';
+  }).join('');
+  var wrap=document.createElement('div');
+  wrap.id='twsPatchNotesModal';
+  wrap.className='tws-modal-backdrop show';
+  wrap.setAttribute('aria-hidden','false');
+  wrap.innerHTML='<div class="tws-modal" role="dialog" aria-modal="true" aria-labelledby="twsPatchTitle">'+
+    '<h3 id="twsPatchTitle">🆕 Was ist neu?</h3>'+
+    '<p style="margin-bottom:12px"><strong>'+esc(APP_VERSION_LABEL)+'</strong></p>'+
+    '<div style="font-size:13px;color:var(--txt2)">'+items+'</div>'+
+    '<div class="tws-modal-actions"><button class="btn bp" id="twsPatchOk">Verstanden</button></div>'+
+    '</div>';
+  document.body.appendChild(wrap);
+  var ok=document.getElementById('twsPatchOk');
+  if(ok)ok.onclick=function(){
+    try{localStorage.setItem('sn_patchnotes_seen',APP_VERSION);}catch(e){}
+    closePatchNotes();
+  };
+  wrap.onclick=function(e){
+    if(e.target===wrap && manual)closePatchNotes();
+  };
+}
+
+function maybeShowPatchNotes(){
+  if(!APP_PATCH_NOTES || !APP_PATCH_NOTES.length)return;
+  var seen='';
+  try{seen=localStorage.getItem('sn_patchnotes_seen')||'';}catch(e){}
+  if(seen!==APP_VERSION){
+    setTimeout(function(){showPatchNotes(false);},450);
+  }
+}
+
+window.addEventListener('load',function(){
+  try{initVersionInfo();}catch(e){console.error('Version info',e);}
+  maybeShowPatchNotes();
+});
 
 
 
